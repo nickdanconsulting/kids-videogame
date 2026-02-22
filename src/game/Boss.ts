@@ -18,6 +18,7 @@ export class Boss extends Entity {
   readonly bossType: BossType;
   private params: BossParams;
   private scale: number;
+  readonly contactDamage: number;
 
   // Behavior state
   private phase = 1;
@@ -59,6 +60,7 @@ export class Boss extends Entity {
     this.bossType = bossType;
     this.params = params;
     this.scale = enemyScale;
+    this.contactDamage = params.contactDamage ?? 1;
     this.particles = particles;
     this.shake = shake;
   }
@@ -93,8 +95,8 @@ export class Boss extends Entity {
     this.pendingProjectiles = [];
     this.pendingSpawns = [];
 
-    const phaseSpeed = this.params.speed * (1 + (this.phase - 1) * 0.4);
-    const phaseCooldown = this.params.shootCooldown / (1 + (this.phase - 1) * 0.35);
+    const phaseSpeed = this.params.speed * (1 + (this.phase - 1) * 0.25);
+    const phaseCooldown = this.params.shootCooldown / (1 + (this.phase - 1) * 0.2);
 
     switch (this.bossType) {
       case BossType.Turret:   this.updateTurret(dt, phaseCooldown);              break;
@@ -138,8 +140,8 @@ export class Boss extends Entity {
       this.chargeDuration -= dt * 1000;
       const moved = tilemap.resolveMovement(
         this.x, this.y, this.w, this.h,
-        this.chargeDir.x * speed * dt * 1.5,
-        this.chargeDir.y * speed * dt * 1.5,
+        this.chargeDir.x * speed * dt * 1.2,
+        this.chargeDir.y * speed * dt * 1.2,
       );
       const blocked = Math.abs(moved.x - this.x) < 0.1 && Math.abs(moved.y - this.y) < 0.1;
       this.x = moved.x;
@@ -152,7 +154,7 @@ export class Boss extends Entity {
       }
     } else {
       // Telegraph then charge
-      const telegraphTime = 800 - (this.phase - 1) * 200;
+      const telegraphTime = 1000 - (this.phase - 1) * 150;
       if (this.stateTimer >= telegraphTime) {
         // Aim at player and charge
         const dx = this.targetX - this.cx;
@@ -237,7 +239,7 @@ export class Boss extends Entity {
     this.shootTimer += dt * 1000;
     if (this.shootTimer >= cooldown) {
       this.shootTimer = 0;
-      const ringCount = 6 + (this.phase - 1) * 3;
+      const ringCount = 5 + (this.phase - 1) * 2;
       for (let i = 0; i < ringCount; i++) {
         const angle = (i / ringCount) * Math.PI * 2 + this.stateTimer * 0.001;
         this.pendingProjectiles.push(
@@ -247,7 +249,7 @@ export class Boss extends Entity {
     }
 
     // Spawn minions
-    const spawnRate = (this.params.spawnRate ?? 5000) / (1 + (this.phase - 1) * 0.4);
+    const spawnRate = (this.params.spawnRate ?? 5000) / (1 + (this.phase - 1) * 0.25);
     this.spawnTimer += dt * 1000;
     if (this.spawnTimer >= spawnRate) {
       this.spawnTimer = 0;

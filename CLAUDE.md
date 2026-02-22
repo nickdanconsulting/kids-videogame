@@ -45,8 +45,20 @@ Each level: `screens: ScreenDef[][]` (rows x cols). Each screen has `tiles: stri
 ## Boss Types
 Turret (stationary), Brute (charges), Blaster (strafe+spread), Summoner (spawns minions)
 
-## V1 Status
+## V3 Status
 Complete and building clean. Deployed on Vercel.
+
+### V2 Changes
+- Mobile touch controls via DOM overlay (D-pad + action buttons)
+- Difficulty tuning: HP regen, Mom/Dad NPCs
+
+### V3 Changes
+- Touch controls moved from canvas-rendered to real HTML DOM elements (properly thumb-sized)
+- Boss difficulty rebalanced across all 20 levels (HP, speed, cooldowns, phase scaling)
+- Boss rooms redesigned with wall pillars and environmental hazards for strategic cover
+- BossParams extended with `contactDamage` and `maxMinions`
+- Minion cap enforcement for Summoner bosses
+- Enemy scales reduced across all level tiers
 
 ## Guidelines
 - Keep the game lightweight — no heavy dependencies

@@ -7,7 +7,28 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
-    <canvas id="game-canvas"></canvas>
+    <div id="game-wrapper">
+      <canvas id="game-canvas"></canvas>
+    </div>
+
+    <div id="touch-controls">
+      <!-- D-pad -->
+      <div id="touch-dpad">
+        <div class="dpad-arrow dpad-up" data-dir="up"></div>
+        <div class="dpad-arrow dpad-down" data-dir="down"></div>
+        <div class="dpad-arrow dpad-left" data-dir="left"></div>
+        <div class="dpad-arrow dpad-right" data-dir="right"></div>
+      </div>
+
+      <!-- Action buttons -->
+      <div id="touch-buttons">
+        <button class="touch-btn btn-jump" data-code="KeyZ">Z</button>
+        <button class="touch-btn btn-blast" data-code="KeyX">X</button>
+        <button class="touch-btn btn-pulse" data-code="Space">P</button>
+        <button class="touch-btn btn-pause" data-code="Escape">||</button>
+      </div>
+    </div>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

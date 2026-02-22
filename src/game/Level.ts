@@ -249,8 +249,20 @@ export class Level {
       this.boss.targetY = this.player.cy;
       this.boss.update(dt, tm);
       this.projectiles.push(...this.boss.pendingProjectiles);
-      // Boss-spawned enemies
-      this.boss.pendingSpawns.forEach(spawned => this.enemies.push(spawned));
+      // Boss-spawned enemies (capped by maxMinions)
+      if (this.boss.pendingSpawns.length > 0) {
+        const maxMinions = this.def.bossParams.maxMinions ?? 4;
+        const bossRow = this.def.bossScreen.row;
+        const bossCol = this.def.bossScreen.col;
+        const currentMinions = this.enemiesOnScreen(bossRow, bossCol).length;
+        let added = 0;
+        for (const spawned of this.boss.pendingSpawns) {
+          if (currentMinions + added < maxMinions) {
+            this.enemies.push(spawned);
+            added++;
+          }
+        }
+      }
       // Boss phase transition flash
       if (this.boss.phaseChanged) {
         this.boss.phaseChanged = false;
@@ -332,7 +344,7 @@ export class Level {
     if (this.overlaps(this.player.x, this.player.y, this.player.w, this.player.h,
                       this.boss.x, this.boss.y, this.boss.w, this.boss.h)) {
       const hpBefore = this.player.hp;
-      this.player.takeDamage(2);
+      this.player.takeDamage(this.boss!.contactDamage);
       this.audio.play('player_hit');
       if (this.player.hp < hpBefore) this.screenEffects.triggerDamageFlash();
     }

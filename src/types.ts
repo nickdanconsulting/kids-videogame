@@ -92,6 +92,10 @@ export interface BossParams {
   // Summoner specific
   spawnRate?: number;       // ms between spawns
   spawnType?: EnemyType;
+  maxMinions?: number;      // cap on living spawned minions (default 4)
+
+  // Contact damage when player touches boss (default 1)
+  contactDamage?: number;
 }
 
 // ============================================================

@@ -14,10 +14,189 @@ html, body {
   justify-content: center;
 }
 
+#game-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #game-canvas {
   display: block;
-  /* pixel-perfect scaling — no blur */
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+}
+
+/* ---- Touch Controls Overlay ---- */
+
+#touch-controls {
+  display: none;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#touch-controls.touch-active {
+  display: block;
+}
+
+/* Hide on devices that have a mouse/hover (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  #touch-controls {
+    display: none !important;
+  }
+}
+
+/* ---- D-Pad ---- */
+
+#touch-dpad {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(30, 30, 60, 0.35);
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dpad-arrow {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dpad-arrow::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.dpad-up {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.dpad-up::after {
+  border-width: 0 10px 14px 10px;
+  border-color: transparent transparent rgba(170, 170, 204, 0.7) transparent;
+}
+
+.dpad-down {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.dpad-down::after {
+  border-width: 14px 10px 0 10px;
+  border-color: rgba(170, 170, 204, 0.7) transparent transparent transparent;
+}
+
+.dpad-left {
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.dpad-left::after {
+  border-width: 10px 14px 10px 0;
+  border-color: transparent rgba(170, 170, 204, 0.7) transparent transparent;
+}
+
+.dpad-right {
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.dpad-right::after {
+  border-width: 10px 0 10px 14px;
+  border-color: transparent transparent transparent rgba(170, 170, 204, 0.7);
+}
+
+/* ---- Action Buttons ---- */
+
+#touch-buttons {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 140px;
+  height: 140px;
+  pointer-events: none;
+}
+
+.touch-btn {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-family: monospace;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0.35;
+  transition: opacity 0.08s, transform 0.08s;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.touch-btn:active,
+.touch-btn.active {
+  opacity: 0.55;
+  transform: scale(1.05);
+}
+
+/* Jump (Z) — bottom center of cluster */
+.btn-jump {
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+  background: rgba(68, 136, 255, 0.6);
+  bottom: 0;
+  left: 28px;
+}
+
+/* Blast (X) — right of Jump */
+.btn-blast {
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+  background: rgba(255, 68, 102, 0.6);
+  bottom: 20px;
+  right: 0;
+}
+
+/* Pulse (P) — above Jump */
+.btn-pulse {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+  background: rgba(170, 68, 255, 0.6);
+  top: 24px;
+  left: 32px;
+}
+
+/* Pause (||) — top right, smaller */
+.btn-pause {
+  width: 36px;
+  height: 36px;
+  font-size: 11px;
+  background: rgba(136, 136, 136, 0.6);
+  top: 0;
+  right: 8px;
 }
