@@ -17,6 +17,7 @@ import { Pickup } from './Pickup';
 import { Player } from './Player';
 import { Projectile } from './Projectile';
 import { ScreenEffects } from './ScreenEffects';
+import { NPC, NPCKind } from './NPC';
 import { Tilemap } from './Tilemap';
 
 export class Level {
@@ -40,6 +41,7 @@ export class Level {
   private boss: Boss | null = null;
   private pickups: Pickup[] = [];
   private projectiles: Projectile[] = [];
+  private npcs: NPC[] = [];
   particles = new ParticleSystem();
   shake = new ScreenShake();
   screenEffects = new ScreenEffects();
@@ -123,6 +125,42 @@ export class Level {
         this.shake,
       );
     }
+
+    // Random NPC spawn (~35% chance per level)
+    if (Math.random() < 0.35) {
+      const kind: NPCKind = Math.random() < 0.5 ? 'mom' : 'dad';
+      const npcTile = this.findSafeFloorTile(this.def.startScreen.row, this.def.startScreen.col);
+      if (npcTile) {
+        const startTm = this.tilemaps[this.def.startScreen.row]![this.def.startScreen.col]!;
+        this.npcs.push(new NPC(
+          startTm.originX + npcTile.col * TILE_SIZE + 1,
+          startTm.originY + npcTile.row * TILE_SIZE + 1,
+          kind,
+        ));
+      }
+    }
+  }
+
+  private findSafeFloorTile(screenRow: number, screenCol: number): { row: number; col: number } | null {
+    const screenDef = this.def.screens[screenRow]?.[screenCol];
+    if (!screenDef) return null;
+
+    const candidates: Array<{ row: number; col: number }> = [];
+    const enemyPositions = new Set(screenDef.enemies.map(e => `${e.x},${e.y}`));
+
+    for (let r = 2; r < SCREEN_ROWS - 2; r++) {
+      const row = screenDef.tiles[r];
+      if (!row) continue;
+      for (let c = 2; c < SCREEN_COLS - 2; c++) {
+        const ch = row[c];
+        if (ch === '.' && !enemyPositions.has(`${c},${r}`)) {
+          candidates.push({ row: r, col: c });
+        }
+      }
+    }
+
+    if (candidates.length === 0) return null;
+    return candidates[Math.floor(Math.random() * candidates.length)]!;
   }
 
   private spawnPickupsForScreen(tiles: string[], tm: Tilemap): void {
@@ -229,6 +267,9 @@ export class Level {
 
     // Pickups
     this.pickups.filter(p => p.alive).forEach(p => p.update(dt, tm));
+
+    // NPCs
+    this.npcs.forEach(n => n.update(dt));
 
     // Projectiles
     this.projectiles = this.projectiles.filter(p => p.alive);
@@ -525,6 +566,18 @@ export class Level {
     );
   }
 
+  private npcsOnScreen(screenRow: number, screenCol: number): NPC[] {
+    const tm = this.tilemaps[screenRow]?.[screenCol];
+    if (!tm) return [];
+    const ox = tm.originX;
+    const oy = tm.originY;
+    const maxX = ox + SCREEN_COLS * TILE_SIZE;
+    const maxY = oy + SCREEN_ROWS * TILE_SIZE;
+    return this.npcs.filter(n =>
+      n.x >= ox && n.x < maxX && n.y >= oy && n.y < maxY
+    );
+  }
+
   private bossOnCurrentScreen(): boolean {
     return (
       this.camera.screenRow === this.def.bossScreen.row &&
@@ -561,6 +614,10 @@ export class Level {
 
     // Pickups
     this.pickups.forEach(p => p.render(ctx, this.camera));
+
+    // NPCs on current screen
+    this.npcsOnScreen(this.camera.screenRow, this.camera.screenCol)
+      .forEach(n => n.render(ctx, this.camera));
 
     // Enemies on current screen (including dying ones)
     this.enemiesOnScreen(this.camera.screenRow, this.camera.screenCol)
@@ -627,6 +684,11 @@ export class Level {
     // Pickup shadows
     this.pickups.forEach(p => {
       if (p.alive) drawShadow(p.x, p.y, p.w, p.h, 0.15);
+    });
+
+    // NPC shadows
+    this.npcsOnScreen(this.camera.screenRow, this.camera.screenCol).forEach(n => {
+      drawShadow(n.x, n.y, n.w, n.h, 0.15);
     });
 
     ctx.globalAlpha = 1;

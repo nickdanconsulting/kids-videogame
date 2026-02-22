@@ -33,6 +33,8 @@ export const PLAYER_PULSE_COST = 50;
 export const PLAYER_FIRE_COOLDOWN = 320;  // ms between blasts
 export const PLAYER_IFRAMES_MS   = 1200;  // invulnerability after hit (ms)
 export const PLAYER_JUMP_MS      = 590;   // jump arc duration (ms)
+export const PLAYER_HP_REGEN_DELAY    = 8;   // seconds without damage before regen starts
+export const PLAYER_HP_REGEN_INTERVAL = 3;   // seconds between regen ticks
 
 // Projectile
 export const PROJECTILE_SPEED_PLAYER  = 260; // px/s

@@ -7,6 +7,7 @@ import {
   BOSS_PALETTE_BASE, BOSS_PALETTE_PHASE2, BOSS_PALETTE_PHASE3,
   CRYSTAL_PALETTE, KEY_PALETTE,
   PROJ_PLAYER_PALETTE, PROJ_ENEMY_PALETTE,
+  NPC_MOM_PALETTE, NPC_DAD_PALETTE,
 } from './palettes';
 
 // ============================================================
@@ -388,6 +389,46 @@ const PROJ_ENEMY: string[] = [
 ];
 
 // ============================================================
+// NPC sprites — 14x14 (friendly, non-interactive)
+// ============================================================
+
+// Mom: dress with apron, warm stance
+const NPC_MOM: string[] = [
+  '    DDDDDD    ',
+  '   DDbbbbDD   ',
+  '  DDbEbbEbDD  ',
+  '  DDbbbbbbbD  ',
+  '   DDbbbDD    ',
+  '  AABBbbBBAA  ',
+  '  ABBaaBBBBA  ',
+  '  ABBaaBBBBA  ',
+  '  AABBbbBBAA  ',
+  '   SSBBBbSS   ',
+  '   SSsBBsSS   ',
+  '   SSssssS    ',
+  '    LlLlL     ',
+  '    L   L     ',
+].map(r => r.slice(0, 14));
+
+// Dad: casual shirt, sturdy stance
+const NPC_DAD: string[] = [
+  '    DDDDDD    ',
+  '   DDbbbbDD   ',
+  '  DDbEbbEbDD  ',
+  '  DDbbbbbbbD  ',
+  '   DDbbbbD    ',
+  '  AABBbbBBAA  ',
+  '  ABBBbBBBBA  ',
+  '  ABBBbBBBBA  ',
+  '  AABBbbBBAA  ',
+  '   SSBBBbSS   ',
+  '   SSssssS    ',
+  '   SSssssS    ',
+  '    LlLlL     ',
+  '    L   L     ',
+].map(r => r.slice(0, 14));
+
+// ============================================================
 // Registration
 // ============================================================
 
@@ -439,6 +480,10 @@ export function registerEntitySprites(sr: SpriteRenderer): void {
   // Projectiles
   sr.register('proj_player', PROJ_PLAYER, PROJ_PLAYER_PALETTE);
   sr.register('proj_enemy', PROJ_ENEMY, PROJ_ENEMY_PALETTE);
+
+  // NPCs
+  sr.register('npc_mom', NPC_MOM, NPC_MOM_PALETTE);
+  sr.register('npc_dad', NPC_DAD, NPC_DAD_PALETTE);
 }
 
 /** Re-register player projectile sprite with character-specific colors. */

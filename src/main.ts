@@ -34,5 +34,5 @@ resize();
 initAllSprites();
 
 // Start the game
-const game = new Game(ctx);
+const game = new Game(ctx, canvas);
 game.start();

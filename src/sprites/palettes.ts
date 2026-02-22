@@ -244,6 +244,33 @@ export const ENEMY_WANDERER_PALETTE: Palette = {
 };
 
 // ============================================================
+// NPC palettes
+// ============================================================
+export const NPC_MOM_PALETTE: Palette = {
+  'B': '#9944aa', 'b': '#bb66cc',  // body (purple dress)
+  'D': '#663377', 'd': '#774488',  // dark/shadow
+  'H': '#dd88ee',                   // highlight
+  'S': '#884499', 's': '#995588',  // skirt
+  'A': '#cc88dd', 'a': '#ddaaee',  // apron/accent
+  'E': '#442266', 'e': '#553377',  // eye
+  'L': '#553366', 'l': '#664477',  // legs
+  'F': '#663388',                   // feet
+  'W': '#ffffff',                   // white accent
+};
+
+export const NPC_DAD_PALETTE: Palette = {
+  'B': '#447744', 'b': '#559955',  // body (green shirt)
+  'D': '#335533', 'd': '#446644',  // dark/shadow
+  'H': '#77bb77',                   // highlight
+  'S': '#554433', 's': '#665544',  // pants (brown)
+  'A': '#558855', 'a': '#66aa66',  // arm
+  'E': '#223322', 'e': '#334433',  // eye
+  'L': '#443322', 'l': '#554433',  // legs/boots
+  'F': '#332211',                   // feet
+  'W': '#ffffff',                   // white accent
+};
+
+// ============================================================
 // Boss palettes (base + phase variants)
 // ============================================================
 export const BOSS_PALETTE_BASE: Palette = {

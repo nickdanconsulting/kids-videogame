@@ -14,7 +14,7 @@ import { sprites } from '../sprites';
 
 // Base stats for each archetype (before enemy scale)
 const BASE = {
-  [EnemyType.Chaser]:    { hp: 3, speed: 70,  shootCooldown: 9999, damage: 1, projectileDamage: 0 },
+  [EnemyType.Chaser]:    { hp: 3, speed: 58,  shootCooldown: 9999, damage: 1, projectileDamage: 0 },
   [EnemyType.Patroller]: { hp: 4, speed: 55,  shootCooldown: 9999, damage: 1, projectileDamage: 0 },
   [EnemyType.Shooter]:   { hp: 2, speed: 30,  shootCooldown: 2000, damage: 0, projectileDamage: 1 },
   [EnemyType.Wanderer]:  { hp: 2, speed: 50,  shootCooldown: 9999, damage: 1, projectileDamage: 0 },

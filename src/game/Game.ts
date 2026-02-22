@@ -61,8 +61,9 @@ export class Game {
 
   constructor(
     private ctx: CanvasRenderingContext2D,
+    canvas?: HTMLCanvasElement,
   ) {
-    this.input = new Input();
+    this.input = new Input(canvas);
     this.camera = new Camera();
     this.save = new Save();
     this.audio = new Audio();
@@ -482,10 +483,67 @@ export class Game {
       }
     }
 
+    // Touch controls overlay
+    if (this.input.showTouchControls &&
+        (this.state === GameState.Play || this.state === GameState.Pause || this.state === GameState.Title)) {
+      this.renderTouchControls();
+    }
+
     // Debug overlay (backtick toggle)
     if (this.debugMode) {
       this.renderDebugOverlay();
     }
+  }
+
+  private renderTouchControls(): void {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.globalAlpha = 0.3;
+
+    // D-pad background circle
+    ctx.fillStyle = '#222244';
+    ctx.beginPath();
+    ctx.arc(40, 200, 34, 0, Math.PI * 2);
+    ctx.fill();
+
+    // D-pad arrows
+    ctx.fillStyle = '#aaaacc';
+    this.drawTriangle(ctx, 40, 172, 8, 'up');
+    this.drawTriangle(ctx, 40, 228, 8, 'down');
+    this.drawTriangle(ctx, 12, 200, 8, 'left');
+    this.drawTriangle(ctx, 68, 200, 8, 'right');
+
+    // Action buttons
+    const buttons = [
+      { x: 272, y: 212, r: 12, label: 'Z', color: '#4488ff' },
+      { x: 300, y: 190, r: 12, label: 'X', color: '#ff4466' },
+      { x: 272, y: 178, r: 12, label: 'P', color: '#aa44ff' },
+      { x: 301, y: 159, r: 8,  label: '||', color: '#888888' },
+    ];
+    for (const btn of buttons) {
+      ctx.fillStyle = btn.color;
+      ctx.beginPath();
+      ctx.arc(btn.x, btn.y, btn.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = btn.r > 8 ? '7px monospace' : '5px monospace';
+      const tw = ctx.measureText(btn.label).width;
+      ctx.fillText(btn.label, btn.x - tw / 2, btn.y + (btn.r > 8 ? 3 : 2));
+    }
+
+    ctx.restore();
+  }
+
+  private drawTriangle(ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, dir: string): void {
+    ctx.beginPath();
+    switch (dir) {
+      case 'up':    ctx.moveTo(cx, cy - size); ctx.lineTo(cx - size, cy + size); ctx.lineTo(cx + size, cy + size); break;
+      case 'down':  ctx.moveTo(cx, cy + size); ctx.lineTo(cx - size, cy - size); ctx.lineTo(cx + size, cy - size); break;
+      case 'left':  ctx.moveTo(cx - size, cy); ctx.lineTo(cx + size, cy - size); ctx.lineTo(cx + size, cy + size); break;
+      case 'right': ctx.moveTo(cx + size, cy); ctx.lineTo(cx - size, cy - size); ctx.lineTo(cx - size, cy + size); break;
+    }
+    ctx.closePath();
+    ctx.fill();
   }
 
   private renderDebugOverlay(): void {

@@ -6,6 +6,7 @@ import {
   PLAYER_SPEED, PLAYER_MAX_HP, PLAYER_MAX_ENERGY,
   PLAYER_ENERGY_REGEN, PLAYER_BLAST_COST, PLAYER_PULSE_COST,
   PLAYER_FIRE_COOLDOWN, PLAYER_IFRAMES_MS, PLAYER_JUMP_MS,
+  PLAYER_HP_REGEN_DELAY, PLAYER_HP_REGEN_INTERVAL,
 } from '../constants';
 import { Camera } from './Camera';
 import { Entity } from './Entity';
@@ -31,6 +32,9 @@ export class Player extends Entity {
 
   // Blast cooldown
   private fireCooldown = 0;
+
+  // HP regen
+  private hpRegenTimer = 0;
 
   // Blast visual flash timer (ms)
   private blastFlashTimer = 0;
@@ -81,12 +85,14 @@ export class Player extends Entity {
     this.vx = 0;
     this.vy = 0;
     this.alive = true;
+    this.hpRegenTimer = 0;
   }
 
   override takeDamage(amount: number): void {
     if (this.iFrameTimer > 0) return;
     super.takeDamage(amount);
     this.iFrameTimer = PLAYER_IFRAMES_MS;
+    this.hpRegenTimer = 0;
     this.particles.spawn(this.cx, this.cy, 8, '#55ddff', 60);
   }
 
@@ -195,6 +201,19 @@ export class Player extends Entity {
       this.energy -= PLAYER_PULSE_COST;
       this.timePulseTriggered = true;
       this.particles.spawn(this.cx, this.cy, 20, '#aaffff', 120, [3, 6]);
+    }
+
+    // HP regeneration
+    if (this.hp < PLAYER_MAX_HP) {
+      this.hpRegenTimer += dt;
+      const regenTime = PLAYER_HP_REGEN_DELAY + PLAYER_HP_REGEN_INTERVAL;
+      if (this.hpRegenTimer >= regenTime) {
+        this.hp = Math.min(PLAYER_MAX_HP, this.hp + 1);
+        this.hpRegenTimer = PLAYER_HP_REGEN_DELAY;
+        this.particles.spawn(this.cx, this.cy, 6, '#44ff88', 40);
+      }
+    } else {
+      this.hpRegenTimer = 0;
     }
   }
 

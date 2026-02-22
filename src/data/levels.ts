@@ -1639,7 +1639,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L5_00, L5_01], [L5_10, L5_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Brute,
-    bossParams: { hp: 24, speed: 160, shootCooldown: 9999, chargeSpeed: 160, phases: 1 },
+    bossParams: { hp: 20, speed: 130, shootCooldown: 9999, chargeSpeed: 130, phases: 1 },
     crystalTotal: 6, gatingType: 'switch', enemyScale: 1.2, backgroundPalette: 'deck-b',
   },
   {
@@ -1647,7 +1647,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L6_00, L6_01], [L6_10, L6_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Brute,
-    bossParams: { hp: 30, speed: 180, shootCooldown: 9999, chargeSpeed: 180, phases: 2 },
+    bossParams: { hp: 26, speed: 150, shootCooldown: 9999, chargeSpeed: 150, phases: 2 },
     crystalTotal: 5, gatingType: 'key', enemyScale: 1.2, backgroundPalette: 'deck-b-alt',
   },
   {
@@ -1655,7 +1655,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L7_00, L7_01], [L7_10, L7_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Brute,
-    bossParams: { hp: 36, speed: 200, shootCooldown: 9999, chargeSpeed: 200, phases: 2 },
+    bossParams: { hp: 32, speed: 165, shootCooldown: 9999, chargeSpeed: 165, phases: 2 },
     crystalTotal: 8, gatingType: 'crystals', crystalThreshold: 6, enemyScale: 1.2, backgroundPalette: 'deck-b',
   },
   {
@@ -1663,7 +1663,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L8_00, L8_01], [L8_10, L8_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Brute,
-    bossParams: { hp: 44, speed: 220, shootCooldown: 9999, chargeSpeed: 220, phases: 3 },
+    bossParams: { hp: 38, speed: 180, shootCooldown: 9999, chargeSpeed: 180, phases: 3 },
     crystalTotal: 8, gatingType: 'switch', enemyScale: 1.2, backgroundPalette: 'deck-b-alt',
   },
   {
@@ -1671,7 +1671,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L9_00, L9_01, L9_02]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 0, col: 2 },
     bossType: BossType.Blaster,
-    bossParams: { hp: 30, speed: 50, shootCooldown: 1400, phases: 2 },
+    bossParams: { hp: 26, speed: 45, shootCooldown: 1650, phases: 2 },
     crystalTotal: 5, gatingType: 'key', enemyScale: 1.4, backgroundPalette: 'reactor',
   },
   {
@@ -1679,7 +1679,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L10_00, L10_01], [L10_10, L10_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Blaster,
-    bossParams: { hp: 38, speed: 55, shootCooldown: 1300, phases: 2 },
+    bossParams: { hp: 34, speed: 50, shootCooldown: 1550, phases: 2 },
     crystalTotal: 7, gatingType: 'switch', enemyScale: 1.4, backgroundPalette: 'reactor-alt',
   },
   {
@@ -1687,7 +1687,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L11_00, L11_01, L11_02]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 0, col: 2 },
     bossType: BossType.Blaster,
-    bossParams: { hp: 46, speed: 60, shootCooldown: 1200, phases: 2 },
+    bossParams: { hp: 40, speed: 55, shootCooldown: 1450, phases: 2 },
     crystalTotal: 6, gatingType: 'crystals', crystalThreshold: 5, enemyScale: 1.4, backgroundPalette: 'reactor',
   },
   {
@@ -1695,7 +1695,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L12_00, L12_01], [L12_10, L12_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Blaster,
-    bossParams: { hp: 56, speed: 65, shootCooldown: 1000, phases: 3 },
+    bossParams: { hp: 50, speed: 60, shootCooldown: 1200, phases: 3 },
     crystalTotal: 11, gatingType: 'switch', enemyScale: 1.4, backgroundPalette: 'reactor-alt',
   },
   {
@@ -1703,7 +1703,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L13_00, L13_01], [L13_10, L13_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Summoner,
-    bossParams: { hp: 36, speed: 80, shootCooldown: 2500, spawnRate: 5000, spawnType: EnemyType.Wanderer, phases: 2 },
+    bossParams: { hp: 32, speed: 70, shootCooldown: 2800, spawnRate: 5500, spawnType: EnemyType.Wanderer, phases: 2 },
     crystalTotal: 7, gatingType: 'key', enemyScale: 1.6, backgroundPalette: 'bridge',
   },
   {
@@ -1711,7 +1711,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L14_00, L14_01], [L14_10, L14_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Summoner,
-    bossParams: { hp: 44, speed: 85, shootCooldown: 2200, spawnRate: 4500, spawnType: EnemyType.Chaser, phases: 2 },
+    bossParams: { hp: 38, speed: 75, shootCooldown: 2500, spawnRate: 5000, spawnType: EnemyType.Chaser, phases: 2 },
     crystalTotal: 7, gatingType: 'switch', enemyScale: 1.6, backgroundPalette: 'bridge-alt',
   },
   {
@@ -1719,7 +1719,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L15_00, L15_01], [L15_10, L15_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Summoner,
-    bossParams: { hp: 52, speed: 90, shootCooldown: 2000, spawnRate: 4000, spawnType: EnemyType.Chaser, phases: 3 },
+    bossParams: { hp: 46, speed: 80, shootCooldown: 2300, spawnRate: 4500, spawnType: EnemyType.Chaser, phases: 3 },
     crystalTotal: 9, gatingType: 'crystals', crystalThreshold: 7, enemyScale: 1.6, backgroundPalette: 'bridge',
   },
   {
@@ -1727,7 +1727,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L16_00, L16_01], [L16_10, L16_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Summoner,
-    bossParams: { hp: 62, speed: 95, shootCooldown: 1800, spawnRate: 3500, spawnType: EnemyType.Shooter, phases: 3 },
+    bossParams: { hp: 54, speed: 85, shootCooldown: 2100, spawnRate: 4000, spawnType: EnemyType.Shooter, phases: 3 },
     crystalTotal: 9, gatingType: 'switch', enemyScale: 1.6, backgroundPalette: 'bridge-alt',
   },
   {
@@ -1735,7 +1735,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L17_00, L17_01], [L17_10, L17_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Turret,
-    bossParams: { hp: 70, speed: 0, shootCooldown: 900, numBarrels: 6, phases: 3 },
+    bossParams: { hp: 60, speed: 0, shootCooldown: 1100, numBarrels: 6, phases: 3 },
     crystalTotal: 9, gatingType: 'switch', enemyScale: 2.0, backgroundPalette: 'void',
   },
   {
@@ -1743,7 +1743,7 @@ export const LEVELS: LevelDef[] = [
     screens: [[L18_00, L18_01], [L18_10, L18_11]],
     startScreen: { row: 0, col: 0 }, bossScreen: { row: 1, col: 1 },
     bossType: BossType.Brute,
-    bossParams: { hp: 96, speed: 300, shootCooldown: 9999, chargeSpeed: 300, phases: 3 },
+    bossParams: { hp: 84, speed: 250, shootCooldown: 9999, chargeSpeed: 250, phases: 3 },
     crystalTotal: 9, gatingType: 'key', enemyScale: 2.2, backgroundPalette: 'void-alt',
   },
   {
